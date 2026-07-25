@@ -8,7 +8,7 @@
 # =====================
 # Local private files
 # =====================
-private/
+/private/
 
 # =====================
 # Build files
