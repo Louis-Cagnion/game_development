@@ -1,0 +1,3 @@
+[submodule "assets/private"]
+	path = assets/private
+	url = git@github.com:Louis-Cagnion/game_development_assets_private.git

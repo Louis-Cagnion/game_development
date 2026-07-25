@@ -1,0 +1,74 @@
+# =====================
+# Environment variables
+# =====================
+.env
+.env.*
+!.env.example
+
+# =====================
+# Local private files
+# =====================
+private/
+
+# =====================
+# Build files
+# =====================
+build/
+bin/
+out/
+dist/
+
+*.o
+*.obj
+*.out
+*.exe
+*.dll
+*.so
+
+# =====================
+# Logs and temporary files
+# =====================
+*.log
+*.tmp
+*.temp
+
+# =====================
+# Backups
+# =====================
+*.bak
+*.backup
+*~
+
+# =====================
+# OS files
+# =====================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# =====================
+# IDE / Editor files
+# =====================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# =====================
+# C/C++ generated files
+# =====================
+*.d
+*.gch
+
+# =====================
+# Game engine generated files
+# =====================
+.cache/
+.temp/
+
+# =====================
+# Asset source files (optional)
+# =====================
+# Uncomment if source files should stay private
+# *.psd
+# *.blend
