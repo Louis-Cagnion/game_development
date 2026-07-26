@@ -2,6 +2,26 @@
 
 A 2D puzzle-based adventure game where every action shapes the story and alters the game world.
 
+## Table of Contents
+
+- [About the project](#about-the-project)
+- [Project structure](#project-structure)
+  - [Folder description](#folder-description)
+  - [Build](#build)
+  - [Run](#run)
+  - [Troubleshooting](#troubleshooting)
+  - [Dependencies](#dependencies)
+- [Private assets repository](#private-assets-repository)
+  - [Clone the project with private assets](#clone-the-project-with-private-assets)
+- [Project collaboration workflow](#project-collaboration-workflow)
+- [Creating a branch using GitHub website](#creating-a-branch-using-github-website)
+- [Adding or updating files](#adding-or-updating-files)
+- [Creating a Pull Request](#creating-a-pull-request)
+- [Branch naming](#branch-naming)
+- [Large files](#large-files)
+- [Development guidelines](#development-guidelines)
+
+
 ## About the project
 
 **Game Development** is a 2D adventure game focused on exploration, puzzles, and storytelling.
@@ -69,12 +89,58 @@ Header files mirroring the structure of `src/`.
 
 The project uses **CMake** with **vcpkg** to manage the SFML dependency.
 
+### 1. Install system dependencies (Linux/Ubuntu)
+
+```bash
+sudo apt update
+sudo apt install -y cmake g++ ninja-build pkg-config \
+    libx11-dev libxrandr-dev libxi-dev libxcursor-dev \
+    libudev-dev libgl1-mesa-dev
+```
+
+### 2. Install vcpkg (one-time setup)
+
+```bash
+git clone https://github.com/microsoft/vcpkg.git ~/vcpkg
+~/vcpkg/bootstrap-vcpkg.sh
+```
+
+### 3. Clone the project
+
 ```bash
 git clone --recurse-submodules git@github.com:Louis-Cagnion/game_development.git
 cd game_development
-cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=<path-to-vcpkg>/scripts/buildsystems/vcpkg.cmake
+```
+
+If already cloned without submodules:
+
+```bash
+git submodule update --init --recursive
+```
+
+### 4. Configure the project
+
+This step downloads and builds SFML automatically via vcpkg (can take a few minutes the first time).
+
+```bash
+cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=~/vcpkg/scripts/buildsystems/vcpkg.cmake -G Ninja
+```
+
+### 5. Build the project
+
+```bash
 cmake --build build
 ```
+
+### 6. Rebuilding after code changes
+
+If you only edited existing `.cpp`/`.hpp` files:
+
+```bash
+cmake --build build
+```
+
+If you added a new `.cpp` file, changed `CMakeLists.txt`, or changed `vcpkg.json`, re-run step 4 first, then step 5.
 
 ---
 
@@ -137,6 +203,41 @@ Contains project documentation:
 * technical documentation.
 
 ---
+
+## Run
+
+```bash
+./build/GameDevelopment
+```
+
+A black 1280x720 window should open. This confirms SFML, CMake, and vcpkg are working correctly. Close the window to exit.
+
+---
+
+## Troubleshooting
+
+- **`vcpkg install failed` / version errors**: check that `vcpkg.json` uses a valid `builtin-baseline` (a commit SHA, not a branch name) and a version of SFML that actually exists in the vcpkg registry.
+- **`CMake was unable to find a build program`**: make sure `ninja-build` is installed (`sudo apt install ninja-build`) and that you passed `-G Ninja`.
+- **SFML build fails with missing system libraries**: install the packages listed in step 1 (`libx11-dev`, `libxi-dev`, `libxrandr-dev`, `libxcursor-dev`, `libudev-dev`, `libgl1-mesa-dev`).
+- **`find_package(SFML)` fails / wrong version**: `CMakeLists.txt` must request `find_package(SFML 3.0 COMPONENTS Graphics Window System Audio REQUIRED)` — component names must be capitalized (SFML 3 syntax), not lowercase (SFML 2 syntax).
+
+---
+
+## Dependencies
+
+- **CMake** ≥ 3.20
+- **Ninja** (build system)
+- **g++** (C++20)
+- **vcpkg** (C++ dependency manager, installed separately)
+- **SFML** ≥ 3.0 (installed automatically by vcpkg via `vcpkg.json`)
+
+### System libraries (Linux)
+
+```bash
+sudo apt install -y cmake g++ ninja-build pkg-config \
+    libx11-dev libxrandr-dev libxi-dev libxcursor-dev \
+    libudev-dev libgl1-mesa-dev
+```
 
 # Private assets repository
 
