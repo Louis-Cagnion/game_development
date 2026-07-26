@@ -1,0 +1,11 @@
+{
+  "name": "game-development",
+  "version": "0.1.0",
+  "dependencies": [
+    {
+      "name": "sfml",
+      "version>=": "2.6.0"
+    }
+  ],
+  "builtin-baseline": "master"
+}

@@ -20,13 +20,25 @@ The project is organized into different sections:
 game_development/
 │
 ├── src/                    # Game source code
-├── include/                # Header files
+│   ├── core/               # Game loop, game states, AssetManager
+│   ├── systems/            # Input, collision, rendering
+│   ├── entities/           # Player, interactive objects
+│   └── scenes/             # Scene/level management
+│
+├── include/                # Header files (mirrors src/)
+│   ├── core/
+│   ├── systems/
+│   ├── entities/
+│   └── scenes/
+│
 ├── assets/                 # Game resources
 │   ├── public/             # Public resources
 │   └── private/            # Private assets (Git submodule)
 │
 ├── docs/                   # Documentation and design files
 │
+├── CMakeLists.txt          # Build configuration
+├── vcpkg.json              # Dependency manifest (SFML)
 ├── README.md
 ├── .gitignore
 ├── .gitmodules
@@ -38,20 +50,31 @@ game_development/
 
 ### `src/`
 
-Contains the source code of the game.
+Contains the game source code, organized by responsibility:
 
-Examples:
-
-* gameplay systems;
-* game logic;
-* engine features;
-* tools.
+* `core/` — main game loop, game states, asset resolution (`AssetManager`);
+* `systems/` — input handling, collision detection, rendering;
+* `entities/` — player and interactive objects;
+* `scenes/` — scene/level loading and management.
 
 ---
 
 ### `include/`
 
-Contains header files used by the project source code.
+Header files mirroring the structure of `src/`.
+
+---
+
+## Build
+
+The project uses **CMake** with **vcpkg** to manage the SFML dependency.
+
+```bash
+git clone --recurse-submodules git@github.com:Louis-Cagnion/game_development.git
+cd game_development
+cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=<path-to-vcpkg>/scripts/buildsystems/vcpkg.cmake
+cmake --build build
+```
 
 ---
 
