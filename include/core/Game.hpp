@@ -5,14 +5,15 @@
  * @brief Main game class, handles the window and the main loop.
  */
 class Game {
-public:
-    /// @brief Creates the game window (1280x720).
-    Game();
-
-    /// @brief Runs the main loop (events, update, render) until the window closes.
-    void run();
-
 private:
+    sf::RenderWindow        m_window; ///< Main game window.
+    sf::RectangleShape      m_red_square;
+
+    //const
+    static constexpr int    WIN_WIDTH = 1280;
+    static constexpr int    WIN_HEIGHT = 720;
+    static constexpr float    MVT_SPEED = 300.0;
+
     /// @brief Handles SFML events (close, input, etc.).
     void processEvents();
 
@@ -25,5 +26,10 @@ private:
     /// @brief Draws the current frame to the screen.
     void render();
 
-    sf::RenderWindow m_window; ///< Main game window.
+public:
+    /// @brief Creates the game window and sets up the red placeholder square.
+    Game();
+
+    /// @brief Runs the main loop (events, update, render) until the window closes.
+    void run();
 };
